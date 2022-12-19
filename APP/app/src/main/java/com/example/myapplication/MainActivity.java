@@ -9,9 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.Square;
+import com.github.bhlangonijr.chesslib.move.Move;
 
 import no.bakkenbaeck.chessboardeditor.view.board.ChessBoardView;
 
@@ -31,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         // recuperer une reference sur l'objet graphique du board creer a traver le XML
         chessBoardView = (ChessBoardView) findViewById((R.id.chess_board_editor_view));
 
-        chessBoardView.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        String fen="r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4";
+        chessBoardView.setFen(fen);
+
 
 
         Button button = findViewById(R.id.button);
@@ -62,4 +69,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
             );
+
+    public void startBestMove(View view){
+        Intent intent=new Intent(this,BestMoveActivity.class);
+        String fen=chessBoardView.getFen();
+        intent.putExtra("fen",fen);
+        startActivity(intent);
+    }
 }

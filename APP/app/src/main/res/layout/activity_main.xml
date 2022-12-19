@@ -16,10 +16,10 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="352dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="362dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="56dp"
         android:layout_weight="1"
         android:text="Take a picture"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,6 +32,7 @@
         android:layout_marginStart="148dp"
         android:layout_marginBottom="104dp"
         android:layout_weight="1"
+        android:onClick="startBestMove"
         android:text="Best Move"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -40,7 +41,7 @@
         android:id="@+id/options"
         android:layout_width="103dp"
         android:layout_height="47dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="104dp"
         android:layout_weight="1"
         android:text="options"
