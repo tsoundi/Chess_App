@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         // recuperer une reference sur l'objet graphique du board creer a traver le XML
         chessBoardView = (ChessBoardView) findViewById((R.id.chess_board_editor_view));
 
-        chessBoardView.setFen("r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3");
-        //testStockFish();
+        chessBoardView.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
