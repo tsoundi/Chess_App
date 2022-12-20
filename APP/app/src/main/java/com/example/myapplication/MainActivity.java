@@ -51,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chessBoardView.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+                try{
+                    score.execute("queryscore", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Already reset", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         Button scoreBtn = (Button)findViewById(R.id.score);
         scoreBtn.setOnClickListener(new View.OnClickListener() {
