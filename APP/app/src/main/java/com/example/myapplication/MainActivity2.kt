@@ -20,9 +20,6 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class MainActivity2 : AppCompatActivity() {
     private var imageUri: Uri? = null
     private var imageView: ImageView? = null
@@ -116,18 +113,18 @@ class MainActivity2 : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 // Set image captured to image view
                 imageView?.setImageURI(imageUri)
-                button?.visibility = View.GONE
                 white?.visibility = View.VISIBLE
                 black?.visibility = View.VISIBLE
                 white?.setOnClickListener {
                     // Request permission
                     val i = Intent(this@MainActivity2, MainActivity3::class.java)
                     i.putExtra("color", "white")
-                    i.putExtra("imageUri", imageUri)
+                    i.putExtra("imageUri", imageUri.toString())
                     result2.launch(i)
                 }
                 black?.setOnClickListener {
                     // Request permission
+
                     val i = Intent(this@MainActivity2, MainActivity3::class.java)
                     i.putExtra("color", "black")
                     i.putExtra("imageUri", imageUri.toString())

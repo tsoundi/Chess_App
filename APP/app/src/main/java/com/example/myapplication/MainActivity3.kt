@@ -35,6 +35,9 @@ class MainActivity3 : AppCompatActivity() {
         val uriPathHelper = URIPathHelper()
         val filePath = uriPathHelper.getPath(this, imageUri!!)
         val file = File(filePath)
+
+        //change filename to black/white to understand who is playing
+
         val requestFile: RequestBody =
             RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val multiPartBody = MultipartBody.Part.createFormData("file", file.name, requestFile)
