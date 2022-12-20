@@ -38,13 +38,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/options"
+        android:id="@+id/reset"
         android:layout_width="103dp"
         android:layout_height="47dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="104dp"
         android:layout_weight="1"
-        android:text="options"
+        android:text="Reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -56,6 +56,7 @@
         android:layout_marginBottom="104dp"
         android:layout_weight="1"
         android:text="Score"
+        android:onClick="startScore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -68,6 +69,16 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/score_label"
+        android:layout_width="346dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="76dp"
+        android:text="The score is : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score" />
 
 
     <!--

@@ -11,8 +11,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 class ChessAPIAsyncTask extends AsyncTask<String,Void,String> {
     BestMoveActivity bestMoveActivity;
+    MainActivity mainActicity;
     public ChessAPIAsyncTask(BestMoveActivity bestMoveActivity){
         this.bestMoveActivity=bestMoveActivity;
+    }
+    public ChessAPIAsyncTask(MainActivity mainActicity){
+        this.mainActicity=mainActicity;
     }
     @Override
     protected String doInBackground(String... strings) {
@@ -29,7 +33,17 @@ class ChessAPIAsyncTask extends AsyncTask<String,Void,String> {
             reponse=reponse.substring(0,reponse.length()-1);
 
             Log.d("chess","reponse recue:"+reponse);
-            bestMoveActivity.receiveResponce(reponse);
+            try{
+                bestMoveActivity.receiveResponce(reponse);
+            }catch(Exception e){
+                Log.d("error","n'arrive pas à recevoir le best move: "+e);
+            }
+            try{
+                mainActicity.receivescore(reponse);
+            }catch (Exception e){
+                Log.d("error","n'arrive pas à recevoir le score: "+e);
+            }
+
             return reponse;
         }catch (Exception e){
             Log.d("error","problème chez start engine: "+e);

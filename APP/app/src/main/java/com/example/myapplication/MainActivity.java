@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Square;
@@ -25,23 +26,49 @@ public class MainActivity extends AppCompatActivity {
 
 
     ChessBoardView chessBoardView;
-
-
+    TextView score_label;
+    ChessAPIAsyncTask score;
+    String fen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        score_label = (TextView)findViewById(R.id.score_label);
+        score = new ChessAPIAsyncTask(this);
+
 
         // recuperer une reference sur l'objet graphique du board creer a traver le XML
         chessBoardView = (ChessBoardView) findViewById((R.id.chess_board_editor_view));
 
-        String fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        fen="r1bqkbnr/ppp2ppp/2n5/3pp3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq d6 0 4";
+
+
+
         chessBoardView.setFen(fen);
+        Button resetBtn = (Button)findViewById(R.id.reset);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chessBoardView.setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            }
+        });
+
+        Button scoreBtn = (Button)findViewById(R.id.score);
+        scoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    score.execute("queryscore", fen);
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Score already asked", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, MainActivity2.class);
@@ -73,5 +100,19 @@ public class MainActivity extends AppCompatActivity {
         String fen=chessBoardView.getFen();
         intent.putExtra("fen",fen);
         startActivity(intent);
+    }
+
+
+    public void receivescore(String reponse){
+        try {
+            score_label.post(new Runnable() {
+                @Override
+                public void run() {
+                    score_label.setText("The score is : " + reponse);
+               }
+          });
+        }catch (Exception e){
+            Log.d("error", "Incorrect move:<"+e+">");
+        }
     }
 }
