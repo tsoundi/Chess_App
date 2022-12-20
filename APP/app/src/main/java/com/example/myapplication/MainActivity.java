@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView score_label;
     ChessAPIAsyncTask score;
     String fen;
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         score_label = (TextView)findViewById(R.id.score_label);
         score = new ChessAPIAsyncTask(this);
-
+        text = findViewById(R.id.textView2);
 
         // recuperer une reference sur l'objet graphique du board creer a traver le XML
         chessBoardView = (ChessBoardView) findViewById((R.id.chess_board_editor_view));
 
-        fen="r1bqkbnr/ppp2ppp/2n5/3pp3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq d6 0 4";
-
+        fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        text.setText(fen);
 
 
         chessBoardView.setFen(fen);
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     (result) -> {
                         Intent intent = result.getData();
                         if (intent.hasExtra("FENCode")){
-                            TextView text = findViewById(R.id.textView2);
+
                             text.setText(intent.getStringExtra("FENCode"));
 
 
