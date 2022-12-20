@@ -16,6 +16,7 @@ public class BestMoveActivity extends AppCompatActivity{
     Board board_new;
     TextView bestMove_label;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class BestMoveActivity extends AppCompatActivity{
 
         ChessAPIAsyncTask chessAPIAsyncTask=new ChessAPIAsyncTask(this);
         chessAPIAsyncTask.execute("querybest",fen);
+
     }
 
     public void receiveResponce(String reponse){
