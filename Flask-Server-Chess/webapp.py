@@ -21,6 +21,8 @@ intents.message_content = True
 client = discord.Client(loop=discord_loop, intents=intents)
 app = Flask(__name__)
 
+color = "cv.scan black"
+
 @app.route('/', methods = ['POST'])
 async def get_image():
     """<form action="classify_upload" method="post" id="upload-form">
@@ -28,13 +30,21 @@ async def get_image():
     <input type="submit" />
     </form>
     """
+    global color
     global FENTEST
     global getting_FEN
     print(request.form)
     print(request.files)
+    print(request)
+    print(request.files.get)
 
     try:
-        imagefile = request.files.get('file')
+        if request.files.get('black') != None :
+            imagefile = request.files.get('black')
+            color = "cv.scan black"
+        else:
+            imagefile = request.files.get('white')
+            color = "cv.scan white"
     except Exception as err:
         print(err)
     
@@ -71,7 +81,7 @@ async def get_image():
     print('1')
     sleep(1)
     #receive from python bot FEN code
-    channel = client.get_channel(1038454045863579815)
+    channel = client.get_channel()
     send_fut = asyncio.run_coroutine_threadsafe(channel.send(file=discord.File(filename[:-4]+"_black.jpg")), discord_loop)
     # wait for the coroutine to finish
     send_fut.result()
@@ -98,10 +108,14 @@ async def on_message(message):
     global FENTEST
     print(message)
     if message.author == client.user:
-        keyboard.write("cv.scan white")
+        keyboard.write(color)
         keyboard.press("enter")
 
         return
+
+    if message.content == "I could not find any chessboard in the image.":
+        FENTEST = "error"
+        getting_FEN = 0
 
     if message.content != "cv.scan black":
         for i, v in enumerate(message.embeds[0].fields):
@@ -126,7 +140,7 @@ def startClient():
 
     
     asyncio.set_event_loop(loop_client)
-    client.run('MTA1MDcxMjQ1MDc1Mzg4ODI1Ng.G28HEE.KJ1JeoULO8T7O1Y1PZHYiGXFidw9tAtINSHutA')
+    client.run('')
 
 def start_loop(loop, gen):
     loop.run_until_complete(gen)
@@ -135,7 +149,7 @@ def start_loop(loop, gen):
 if __name__ == "__main__":
     
     
-    discord_coroutine = client.start('MTA1MDcxMjQ1MDc1Mzg4ODI1Ng.G28HEE.KJ1JeoULO8T7O1Y1PZHYiGXFidw9tAtINSHutA')
+    discord_coroutine = client.start('')
     discord_thread = threading.Thread(target=start_loop, args=(discord_loop, discord_coroutine))
     discord_thread.start()
 

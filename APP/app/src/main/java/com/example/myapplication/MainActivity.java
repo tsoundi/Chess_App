@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,15 +92,22 @@ public class MainActivity extends AppCompatActivity {
             registerForActivityResult(new
                             ActivityResultContracts.StartActivityForResult(),
                     (result) -> {
-                        Intent intent = result.getData();
-                        if (intent.hasExtra("FENCode")){
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent intent = result.getData();
+                            if (intent.hasExtra("FENCode")) {
 
-                            text.setText(intent.getStringExtra("FENCode"));
+                                text.setText(intent.getStringExtra("FENCode"));
 
 
-                            chessBoardView.setFen(intent.getStringExtra("FENCode"));
+                                chessBoardView.setFen(intent.getStringExtra("FENCode"));
+                                return;
+                            }
+                        }
+                        else
+                        {
                             return;
                         }
+
                     }
             );
 

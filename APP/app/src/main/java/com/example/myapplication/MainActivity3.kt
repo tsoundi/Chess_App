@@ -40,7 +40,8 @@ class MainActivity3 : AppCompatActivity() {
 
         val requestFile: RequestBody =
             RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        val multiPartBody = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        val multiPartBody = MultipartBody.Part.createFormData(color, file.name, requestFile)
+
 
 
         val okHttpClient = OkHttpClient.Builder()
@@ -62,10 +63,15 @@ class MainActivity3 : AppCompatActivity() {
         call.enqueue(object : Callback<FENResponse> {
             override fun onResponse(call: Call<FENResponse>, response: Response<FENResponse>) {
                 if (response.code() == 200) {
+                    val stringAnswer = response.body().fenCode.toString()
+                    if ( stringAnswer == "error")  {
+                        setResult(8)
+                        this@MainActivity3.finish()
+                    }
                     val text = findViewById<TextView>(R.id.textView)
-                    text.text = response.body().fenCode.toString()
+                    text.text = stringAnswer
                     val data = Intent()
-                    data.putExtra("FENCode", response.body().fenCode)
+                    data.putExtra("FENCode", stringAnswer)
                     setResult(Activity.RESULT_OK, data)
                     this@MainActivity3.finish()
 

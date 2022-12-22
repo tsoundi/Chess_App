@@ -145,7 +145,12 @@ class MainActivity2 : AppCompatActivity() {
                 setResult(Activity.RESULT_OK, data)
                 this@MainActivity2.finish()
 
-            } else {
+            }
+            else if(result.resultCode == 8) {
+                // Failed to take picture
+                showAlert("Bad picture, could not be processed")
+            }
+            else {
                 // Failed to take picture
                 showAlert("Failed to make connection with server")
             }
